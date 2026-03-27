@@ -30,5 +30,14 @@ namespace GitHubConnectorAPI.Controllers
             // Returning response
             return Ok(result);
         }
+
+        // GET api/github/user
+        [HttpGet("user")]
+        public async Task<IActionResult> GetUser()
+        {
+            var result = await _gitHubService.GetUserProfile();
+
+            return Ok(result);
+        }
     }
 }

@@ -45,5 +45,22 @@ namespace GitHubConnectorAPI.Services
             // Return the list of repositories or an empty list if deserialization fails
             return repos ?? new List<RepoDto>();
         }
+
+        // Method to get user profile information from GitHub
+        public async Task<GitHubUserDto?> GetUserProfile()
+        {
+            // Call GitHub API
+            var response = await _httpClient.GetAsync("https://api.github.com/user");
+
+            var content = await response.Content.ReadAsStringAsync();
+
+            // Convert JSON → DTO
+            var user = JsonSerializer.Deserialize<GitHubUserDto>(content, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            });
+
+            return user;
+        }
     }
 }

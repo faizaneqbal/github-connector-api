@@ -1,7 +1,9 @@
-﻿namespace GitHubConnectorAPI.Services
+﻿using GitHubConnectorAPI.Models;
+
+namespace GitHubConnectorAPI.Services
 {
     public interface IGitHubService
     {
-        Task<string> GetUserRepositories();
+        Task<List<RepoDto>> GetUserRepositories();
     }
 }

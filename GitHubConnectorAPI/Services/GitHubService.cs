@@ -1,5 +1,7 @@
 ﻿using System.Net.Http.Headers;
 using Microsoft.Extensions.Configuration;
+using System.Text.Json;
+using GitHubConnectorAPI.Models;
 
 namespace GitHubConnectorAPI.Services
 {
@@ -25,15 +27,23 @@ namespace GitHubConnectorAPI.Services
         }
 
         // Method to get user repositories from GitHub
-        public async Task<string> GetUserRepositories()
+        public async Task<List<RepoDto>> GetUserRepositories()
         {
-            // Calling GitHub API endpoint to fetch user repositories
+            // Send a GET request to the GitHub API to retrieve user repositories
             var response = await _httpClient.GetAsync("https://api.github.com/user/repos");
 
-            // Read response content as string (JSON format)
+            // Read the response content as a string
             var content = await response.Content.ReadAsStringAsync();
 
-            return content; // Return the JSON content
+            // Deserialize JSON into a list of RepoDto objects
+            var repos = JsonSerializer.Deserialize<List<RepoDto>>(content, new JsonSerializerOptions
+            {
+                // Ensure property names are case insensitive during deserialization
+                PropertyNameCaseInsensitive = true
+            });
+
+            // Return the list of repositories or an empty list if deserialization fails
+            return repos ?? new List<RepoDto>();
         }
     }
 }

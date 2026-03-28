@@ -54,7 +54,7 @@ github-connector-api
     │   └── CreateIssueResponse.cs
     │
     └── Program.cs
-
+```
 ## 🏗️ Architecture
 
 The project follows a clean and simple architecture:
@@ -97,7 +97,7 @@ Make sure you have the following installed:
 
 ```bash
 git clone <your-repo-url>
-
+```
 2. Open the solution in Visual Studio
 
 3. Configure GitHub Token using User Secrets
@@ -106,7 +106,29 @@ git clone <your-repo-url>
 {
   "GitHub:Token": "your_token_here"
 }
-
+```
 4. Run the project (F5)
 
 5. Open Swagger in browser and test APIs
+
+
+## 📡 API Endpoints
+
+### 1. Get Repositories
+
+**GET** `/api/github/repos`
+
+Returns the authenticated user's repositories.
+
+### 2. Get User Profile
+
+**GET** `/api/github/user`
+
+Returns GitHub user details.
+
+### 3. Create Issue
+
+**POST** `/api/github/issues`
+
+Creates an issue in a GitHub repository.
+

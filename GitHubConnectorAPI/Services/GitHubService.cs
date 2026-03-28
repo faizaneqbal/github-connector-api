@@ -64,7 +64,7 @@ namespace GitHubConnectorAPI.Services
             return user;
         }
 
-        public async Task<string> CreateIssue(CreateIssueRequest request)
+        public async Task<CreateIssueResponse?> CreateIssue(CreateIssueRequest request)
         {
             // Prepare API URL (replace with your username)
             var url = $"https://api.github.com/repos/faizaneqbal/{request.RepoName}/issues";
@@ -86,7 +86,15 @@ namespace GitHubConnectorAPI.Services
             var response = await _httpClient.PostAsync(url, content);
 
             // Read response
-            return await response.Content.ReadAsStringAsync();
+            var responseContent = await response.Content.ReadAsStringAsync();
+
+            // Deserialize only needed fields
+            var issue = JsonSerializer.Deserialize<CreateIssueResponse>(responseContent, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            });
+
+            return issue;
         }
     }
 }

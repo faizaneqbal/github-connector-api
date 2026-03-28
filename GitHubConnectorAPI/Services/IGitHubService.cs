@@ -11,6 +11,6 @@ namespace GitHubConnectorAPI.Services
         Task<GitHubUserDto?> GetUserProfile();
 
         // Method to create a new issue in a repository
-        Task<string> CreateIssue(CreateIssueRequest request);
+        Task<CreateIssueResponse?> CreateIssue(CreateIssueRequest request);
     }
 }

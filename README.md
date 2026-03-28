@@ -132,3 +132,35 @@ Returns GitHub user details.
 
 Creates an issue in a GitHub repository.
 
+#### Request Body
+
+```json
+{
+  "repoName": "github-connector-api",
+  "title": "Test Issue from API",
+  "body": "This issue was created via API"
+}
+```
+#### Sample Response
+
+```json
+{
+  "title": "Test Issue from API",
+  "url": "https://github.com/username/repository/issues/1",
+  "number": 1
+}
+```
+
+## 🧠 What I Learned
+
+This project helped me understand:
+
+- Dependency Injection (DI)
+- Service layer architecture
+- REST API design
+- DTO (Data Transfer Objects)
+- JSON serialization and deserialization
+- External API integration (GitHub API)
+- Error handling in ASP.NET Core
+
+

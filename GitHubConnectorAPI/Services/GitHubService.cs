@@ -33,6 +33,11 @@ namespace GitHubConnectorAPI.Services
             // Send a GET request to the GitHub API to retrieve user repositories
             var response = await _httpClient.GetAsync("https://api.github.com/user/repos");
 
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception($"Failed to fetch repositories: {response.StatusCode}");
+            }
+
             // Read the response content as a string
             var content = await response.Content.ReadAsStringAsync();
 
@@ -53,6 +58,11 @@ namespace GitHubConnectorAPI.Services
             // Call GitHub API
             var response = await _httpClient.GetAsync("https://api.github.com/user");
 
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception($"Failed to fetch User data: {response.StatusCode}");
+            }
+
             var content = await response.Content.ReadAsStringAsync();
 
             // Convert JSON → DTO
@@ -61,11 +71,12 @@ namespace GitHubConnectorAPI.Services
                 PropertyNameCaseInsensitive = true
             });
 
-            return user;
+            return user ?? new GitHubUserDto();
         }
 
         public async Task<CreateIssueResponse?> CreateIssue(CreateIssueRequest request)
         {
+
             // Prepare API URL (replace with your username)
             var url = $"https://api.github.com/repos/faizaneqbal/{request.RepoName}/issues";
 
@@ -85,6 +96,12 @@ namespace GitHubConnectorAPI.Services
             // Send POST request
             var response = await _httpClient.PostAsync(url, content);
 
+            // Ensure the response is successful
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception($"GitHub API failed: {response.StatusCode}");
+            }
+
             // Read response
             var responseContent = await response.Content.ReadAsStringAsync();
 
@@ -102,9 +119,9 @@ namespace GitHubConnectorAPI.Services
                 Number = root.GetProperty("number").GetInt32() // Extract the issue number
             };
 
-
             // Return the populated CreateIssueResponse object
             return issue;
+
         }
     }
 }

@@ -25,28 +25,47 @@ namespace GitHubConnectorAPI.Controllers
         [HttpGet("repos")]
         public async Task<IActionResult> GetRepositories()
         {
-            // Calling service (NOT writing logic here)
-            var result = await _gitHubService.GetUserRepositories();
+            try
+            {
+                // Calling service (NOT writing logic here)
+                var result = await _gitHubService.GetUserRepositories();
 
-            // Returning response
-            return Ok(result);
+                // Returning response
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // GET api/github/user
         [HttpGet("user")]
-        public async Task<IActionResult> GetUser()
+        public async Task<IActionResult> GetUserProfile()
         {
-            var result = await _gitHubService.GetUserProfile();
-
-            return Ok(result);
+            try
+            {
+                var result = await _gitHubService.GetUserProfile();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost("issues")]
         public async Task<IActionResult> CreateIssue([FromBody] CreateIssueRequest request)
         {
-            var result = await _gitHubService.CreateIssue(request);
-
-            return Ok(result);
+            try
+            {
+                var result = await _gitHubService.CreateIssue(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

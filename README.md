@@ -18,7 +18,10 @@ This project demonstrates how to:
 - Get authenticated user's profile details
 - Create GitHub issues via API
 - Clean API responses using DTOs
-- Error handling at controller level
+
+## ⚠️ Error Handling
+- API returns meaningful error messages
+- Controller-level exception handling is implemented
 
 ---
 
@@ -171,5 +174,8 @@ This project helped me understand:
 - Support more GitHub actions (e.g., create repository, update issues)
 - Move configuration fully to secure environment variables
 
+---
 
+## 👨‍💻 Author
+**Md Faizan Eqbal**
 

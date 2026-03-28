@@ -9,7 +9,7 @@ namespace GitHubConnectorAPI.Models
         public string? Title { get; set; }
 
         // Issue URL (important for user)
-        [JsonPropertyName("html_url")]
+       // [JsonPropertyName("html_url")]
         public string? Url { get; set; }
 
         // Issue number

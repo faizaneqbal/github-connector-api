@@ -88,12 +88,22 @@ namespace GitHubConnectorAPI.Services
             // Read response
             var responseContent = await response.Content.ReadAsStringAsync();
 
-            // Deserialize only needed fields
-            var issue = JsonSerializer.Deserialize<CreateIssueResponse>(responseContent, new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            });
+            // Parse the JSON response content into a JsonDocument for easy access to properties
+            using var doc = JsonDocument.Parse(responseContent);
 
+            // Get the root element of the JSON document
+            var root = doc.RootElement;
+
+            // Create a new CreateIssueResponse object and populate its properties from the JSON response
+            var issue = new CreateIssueResponse
+            {
+                Title = root.GetProperty("title").GetString(), // Extract the title of the issue
+                Url = root.GetProperty("html_url").GetString(), // Extract the URL of the created issue
+                Number = root.GetProperty("number").GetInt32() // Extract the issue number
+            };
+
+
+            // Return the populated CreateIssueResponse object
             return issue;
         }
     }

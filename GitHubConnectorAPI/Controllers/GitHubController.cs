@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using GitHubConnectorAPI.Services;
+using GitHubConnectorAPI.Models;
 
 namespace GitHubConnectorAPI.Controllers
 {
@@ -36,6 +37,14 @@ namespace GitHubConnectorAPI.Controllers
         public async Task<IActionResult> GetUser()
         {
             var result = await _gitHubService.GetUserProfile();
+
+            return Ok(result);
+        }
+
+        [HttpPost("issues")]
+        public async Task<IActionResult> CreateIssue([FromBody] CreateIssueRequest request)
+        {
+            var result = await _gitHubService.CreateIssue(request);
 
             return Ok(result);
         }

@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using System.Text.Json;
 using GitHubConnectorAPI.Models;
+using System.Text;
 
 namespace GitHubConnectorAPI.Services
 {
@@ -61,6 +62,31 @@ namespace GitHubConnectorAPI.Services
             });
 
             return user;
+        }
+
+        public async Task<string> CreateIssue(CreateIssueRequest request)
+        {
+            // Prepare API URL (replace with your username)
+            var url = $"https://api.github.com/repos/faizaneqbal/{request.RepoName}/issues";
+
+            // Create request body (what GitHub expects)
+            var issueData = new
+            {
+                title = request.Title,
+                body = request.Body
+            };
+
+            // Convert C# object → JSON string
+            var json = JsonSerializer.Serialize(issueData);
+
+            // Convert to HTTP content
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            // Send POST request
+            var response = await _httpClient.PostAsync(url, content);
+
+            // Read response
+            return await response.Content.ReadAsStringAsync();
         }
     }
 }

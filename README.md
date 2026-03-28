@@ -76,3 +76,37 @@ The project follows a clean and simple architecture:
 **DTOs (Models)**
 - Define request and response structure
 - Ensure clean and controlled API output
+
+## ⚙️ Setup Instructions
+
+### Prerequisites
+
+Make sure you have the following installed:
+
+- .NET SDK
+- Visual Studio 2022
+- Git
+- GitHub account
+- GitHub Personal Access Token (PAT)
+
+---
+
+### Steps to Run
+
+1. Clone the repository
+
+```bash
+git clone <your-repo-url>
+
+2. Open the solution in Visual Studio
+
+3. Configure GitHub Token using User Secrets
+
+```json
+{
+  "GitHub:Token": "your_token_here"
+}
+
+4. Run the project (F5)
+
+5. Open Swagger in browser and test APIs

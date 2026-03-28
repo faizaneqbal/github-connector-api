@@ -163,4 +163,13 @@ This project helped me understand:
 - External API integration (GitHub API)
 - Error handling in ASP.NET Core
 
+## 📌 Future Improvements
+
+- Add global exception handling middleware
+- Add logging
+- Add validation for request models
+- Support more GitHub actions (e.g., create repository, update issues)
+- Move configuration fully to secure environment variables
+
+
 

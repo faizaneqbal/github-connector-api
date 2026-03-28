@@ -54,3 +54,25 @@ github-connector-api
     │   └── CreateIssueResponse.cs
     │
     └── Program.cs
+
+## 🏗️ Architecture
+
+The project follows a clean and simple architecture:
+
+`Client → Controller → Service → GitHub API`
+
+### Responsibilities
+
+**Controller**
+- Handles HTTP requests and responses
+- Manages error handling
+- Does not contain business logic
+
+**Service**
+- Contains business logic
+- Communicates with GitHub API
+- Handles data transformation
+
+**DTOs (Models)**
+- Define request and response structure
+- Ensure clean and controlled API output

@@ -17,6 +17,7 @@ This project demonstrates how to:
 - Get authenticated user's GitHub repositories
 - Get authenticated user's profile details
 - Create GitHub issues via API
+- Pull Request Features(Added Soon)
 - Clean API responses using DTOs
 
 ## ⚠️ Error Handling

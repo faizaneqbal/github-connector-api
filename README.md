@@ -10,6 +10,7 @@ This project demonstrates how to:
 - Fetch user repositories
 - Fetch user profile information
 - Create GitHub issues via API
+- Create GitHub Pull Request via API
 - Apply clean architecture using Controller → Service → DTO pattern
 
 ## 🚀 Features
@@ -17,7 +18,7 @@ This project demonstrates how to:
 - Get authenticated user's GitHub repositories
 - Get authenticated user's profile details
 - Create GitHub issues via API
-- Pull Request Features(Added Soon)
+- Create GitHub pull requests via API (bonus feature)
 - Clean API responses using DTOs
 
 ## ⚠️ Error Handling
@@ -136,6 +137,7 @@ Returns GitHub user details.
 
 Creates an issue in a GitHub repository.
 
+
 #### Request Body
 
 ```json
@@ -151,6 +153,33 @@ Creates an issue in a GitHub repository.
 {
   "title": "Test Issue from API",
   "url": "https://github.com/username/repository/issues/1",
+  "number": 1
+}
+```
+
+### 4. Create Pull Request (Bonus)
+
+**POST** `/api/github/pull-request`
+
+Creates a pull request between two branches in a repository.
+
+#### Request Body
+
+```json
+{
+  "repoName": "github-connector-api",
+  "title": "Test PR from API",
+  "head": "feature-branch",
+  "base": "master"
+}
+```
+
+#### Sample Response
+
+```json
+{
+  "title": "Test PR from API",
+  "url": "https://github.com/username/repository/pull/1",
   "number": 1
 }
 ```

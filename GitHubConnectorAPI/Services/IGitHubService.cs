@@ -12,5 +12,8 @@ namespace GitHubConnectorAPI.Services
 
         // Method to create a new issue in a repository
         Task<CreateIssueResponse?> CreateIssue(CreateIssueRequest request);
+
+        // Method to create a new pull request in a repository
+        Task<CreatePullRequestResponse?> CreatePullRequest(CreatePullRequestRequest request);
     }
 }

@@ -67,5 +67,19 @@ namespace GitHubConnectorAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("pull-request")]
+        public async Task<IActionResult> CreatePullRequest([FromBody] CreatePullRequestRequest request)
+        {
+            try
+            {
+                var result = await _gitHubService.CreatePullRequest(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

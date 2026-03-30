@@ -123,5 +123,51 @@ namespace GitHubConnectorAPI.Services
             return issue;
 
         }
+
+        public async Task<CreatePullRequestResponse?> CreatePullRequest(CreatePullRequestRequest request)
+        {
+            // Prepare API URL
+            var url = $"https://api.github.com/repos/faizaneqbal/{request.RepoName}/pulls";
+
+            // Create request body (GitHub expects this format)
+            var prData = new
+            {
+                title = request.Title,
+                head = request.Head,
+                @base = request.Base // 'base' is keyword in C#
+            };
+
+            // Convert object to JSON
+            var json = JsonSerializer.Serialize(prData);
+
+            // Prepare HTTP content
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            // Send POST request to GitHub
+            var response = await _httpClient.PostAsync(url, content);
+
+            // Check if request was successful
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception($"GitHub PR creation failed: {response.StatusCode}");
+            }
+
+            // Read response content
+            var responseContent = await response.Content.ReadAsStringAsync();
+
+            // Parse JSON response
+            using var doc = JsonDocument.Parse(responseContent);
+            var root = doc.RootElement;
+
+            // Map to response DTO
+            var pr = new CreatePullRequestResponse
+            {
+                Title = root.GetProperty("title").GetString(),
+                Url = root.GetProperty("html_url").GetString(),
+                Number = root.GetProperty("number").GetInt32()
+            };
+
+            return pr;
+        }
     }
 }
